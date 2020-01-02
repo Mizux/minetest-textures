@@ -25,6 +25,8 @@ Stone is not up to date (now it's darker)
 
 ![special](tron/screenshot/screenshot_special.png)
 
+Inspired by https://youtu.be/Jolu2gC8Tcs
+
 # License
 This work is licensed under the terms of the Apache License 2.0.
 See [LICENSE](LICENSE) for more information.
