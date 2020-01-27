@@ -19,6 +19,7 @@ help:
 	@echo -e "\t${BOLD}run_env${RESET}: run a container using the virtual env image (debug purpose)."
 	@echo
 	@echo -e "\t${BOLD}build${RESET}: build the textures in a env image."
+	@echo -e "\t${BOLD}install${RESET}: build the textures in a env image."
 	@echo
 	@echo -e "\t${BOLD}clean${RESET}: Remove textures and docker image."
 	@echo
@@ -57,10 +58,6 @@ DOCKER_RUN_CMD := docker run \
 # $< first prerequist
 # $@ target name
 
-
-#######
-# ENV #
-#######
 # Build the env image.
 .PHONY: env
 env: cache/docker_env.tar
@@ -77,18 +74,21 @@ cache/docker_env.tar: \
 run_env: cache/docker_env.tar
 	${DOCKER_RUN_CMD} -it ${IMAGE}:env /bin/sh
 
-#########
-# BUILD #
-#########
 
 # Currently supported
 THEMES = alien blade_runner deus_ex tron
 
 targets = $(addprefix build_, $(THEMES))
-.PHONY: docker $(targets)
+.PHONY: build $(targets)
 build: $(targets)
 $(targets): build_%: cache/docker_env.tar %/generate.sh
 	${DOCKER_RUN_CMD} -t ${IMAGE}:env /bin/sh -c "cd $* && ./generate.sh"
+
+targets = $(addprefix install_, $(THEMES))
+.PHONY: install $(targets)
+install: $(targets)
+$(targets): install_%: cache/docker_env.tar %/install.sh
+	${DOCKER_RUN_CMD} -t ${IMAGE}:env /bin/sh -c "cd $* && ./install.sh"
 
 #########
 # CLEAN #
