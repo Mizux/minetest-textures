@@ -47,7 +47,11 @@ else
 DOCKER_BUILD_CMD := docker build
 endif
 
-DOCKER_RUN_CMD := docker run --rm --net=host --init --name ${IMAGE}
+DOCKER_RUN_CMD := docker run \
+ --rm \
+ --net=host \
+ -v $$(pwd):/project -w /project \
+ --init --name ${IMAGE} \
 
 # $* stem
 # $< first prerequist
@@ -84,7 +88,7 @@ targets = $(addprefix build_, $(THEMES))
 .PHONY: docker $(targets)
 build: $(targets)
 $(targets): build_%: cache/docker_env.tar %/generate.sh
-	${DOCKER_RUN_CMD} -t -v $$(pwd):/project -w /project ${IMAGE}:env /bin/sh -c "cd $* && ./generate.sh"
+	${DOCKER_RUN_CMD} -t ${IMAGE}:env /bin/sh -c "cd $* && ./generate.sh"
 
 #########
 # CLEAN #
