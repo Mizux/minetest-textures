@@ -1,5 +1,5 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env sh
+set -ex
 
 if [ -n "$1" ]; then
 {
