@@ -1,6 +1,8 @@
 # Introduction
 Various texture packs for minetest
 
+WIP tool: https://mizux.github.io/minetest-textures/
+
 **warning**: All this work has been done in ~2011 and was forgotten, so it is not up to date !
 
 # Installation
