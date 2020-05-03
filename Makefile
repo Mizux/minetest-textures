@@ -72,7 +72,7 @@ cache/docker_env.tar: \
 # Run a container using the env image.
 .PHONY: run_env
 run_env: cache/docker_env.tar
-	${DOCKER_RUN_CMD} -it ${IMAGE}:env /bin/sh
+	${DOCKER_RUN_CMD} -it ${IMAGE}:env
 
 
 # Currently supported
